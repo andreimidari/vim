@@ -1,4 +1,5 @@
 syntax on 
+set encoding=utf-8
 
 set copyindent
 set autoindent
@@ -9,9 +10,22 @@ filetype indent on
 
 set nocompatible
 
+" set pastetoggle=<M-c>
+nnoremap <M-c> : call TogglePasteMode()<CR>
+
+function! TogglePasteMode()
+	if &paste
+		set nopaste
+		echo "Paste mode OFF"
+	else
+		set paste
+		echo "Paste mode ON"
+	endif		
+endfunction
+
 set number
 set relativenumber
-colorscheme koehler
+colorscheme industry
 
 set shiftwidth=4
 set tabstop=4
@@ -42,8 +56,26 @@ set wildmode=list:longest
 set wildoptions=
 set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 
+set statusline=
+set statusline+=%#PmenuSel#
+set statusline+=%#LineNr#
+set statusline+=\ %f
+set statusline+=%m\
+set statusline+=%=
+set statusline+=%#CursorColumn#
+set statusline+=\ %y
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+set statusline+=\[%{&fileformat}\]
+set statusline+=\ %p%%
+set statusline+=\ %l:%c
+set statusline+=\
+
+
+
+
+
 call plug#begin()
 
-    Plug 'vim-airline/vim-airline'
+    Plug 'valloric/youcompleteme'
 
 call plug#end()
